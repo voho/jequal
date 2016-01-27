@@ -4,10 +4,11 @@ Making `equals` and `hashCode` nice and easy since **2016**!
 
 ```java
 public class Person {
-    private static final Equality<Person> EQUALITY = new Equality<>(
-            Person::getFirstName,
-            Person::getLastName
-    );
+    private static final Equality<Person> EQUALITY = Equality
+                .withOtherObjectsOfType(Person.class)
+                .byComparing(Person::getFirstName)
+                .byComparing(Person::getLastName)
+                .define();
 
     private String firstName;
     private String lastName;
