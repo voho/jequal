@@ -6,12 +6,8 @@ import java.util.Objects;
 import java.util.function.Function;
 
 public interface Equality<T> {
-    static <T> Equality.Builder<T> withOtherObjectsOfExactType(final Class<T> type) {
-        return new Builder<T>().withExactType(type);
-    }
-
-    static <T> Equality.Builder<T> withOtherObjectsOfType(final Class<T> type) {
-        return new Builder<T>().withType(type);
+    static <T> Equality.Builder<T> withInstancesOf(final Class<T> type) {
+        return new Builder<T>(type);
     }
 
     boolean equals(final T first, final Object second);
@@ -19,23 +15,22 @@ public interface Equality<T> {
     int hashCode(final T first);
 
     class Builder<T> {
-        private final List<Function<T, ?>> valueExtractors = new LinkedList<>();
-        private Class<T> type = null;
-        private boolean allowSubTypes = true;
+        private final Class<T> type;
+        private final List<Function<T, ?>> valueExtractors;
+        private boolean allowSubTypes;
 
-        public Builder<T> withExactType(final Class<T> type) {
+        public Builder(final Class<T> type) {
             this.type = type;
+            valueExtractors = new LinkedList<>();
             allowSubTypes = false;
-            return this;
         }
 
-        public Builder<T> withType(final Class<T> type) {
-            this.type = type;
+        public Builder<T> allowAnySubType() {
             allowSubTypes = true;
             return this;
         }
 
-        public Builder<T> byComparing(final Function<T, ?> valueExtractor) {
+        public Builder<T> checkEqualityOf(final Function<T, ?> valueExtractor) {
             valueExtractors.add(valueExtractor);
             return this;
         }

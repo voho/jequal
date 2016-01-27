@@ -5,9 +5,10 @@ Making `equals` and `hashCode` nice and easy since **2016**!
 ```java
 public class Person {
     private static final Equality<Person> EQUALITY = Equality
-                .withOtherObjectsOfType(Person.class)
-                .byComparing(Person::getFirstName)
-                .byComparing(Person::getLastName)
+                .withInstancesOf(Person.class)
+                .allowAnySubType()
+                .checkEqualityOf(Person::getFirstName)
+                .checkEqualityOf(Person::getLastName)
                 .define();
 
     private String firstName;
