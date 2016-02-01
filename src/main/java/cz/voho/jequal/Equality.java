@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 public interface Equality<T> {
-    static <T> Equality.Builder<T> withInstancesOf(final Class<T> type) {
+    static <T> Equality.Builder<T> ofClass(final Class<T> type) {
         return new Builder<T>(type);
     }
 
@@ -25,12 +25,12 @@ public interface Equality<T> {
             allowSubTypes = false;
         }
 
-        public Builder<T> allowAnySubType() {
+        public Builder<T> orAnySubClass() {
             allowSubTypes = true;
             return this;
         }
 
-        public Builder<T> checkEqualityOf(final Function<T, ?> valueExtractor) {
+        public Builder<T> checkEquals(final Function<T, ?> valueExtractor) {
             valueExtractors.add(valueExtractor);
             return this;
         }
@@ -38,37 +38,39 @@ public interface Equality<T> {
         public Equality<T> define() {
             return new Equality<T>() {
                 public boolean equals(final T first, final Object second) {
-                    Objects.requireNonNull(first);
-
-                    if (second == null) {
-                        return false;
-                    }
                     if (first == second) {
                         return true;
                     }
-                    if (!allowSubTypes && type != second.getClass()) {
+                    if (first == null || second == null) {
                         return false;
                     }
-                    try {
-                        final T secondTyped = (T) second;
-
-                        for (final Function<T, ?> valueExtractor : valueExtractors) {
-                            final Object firstValue = valueExtractor.apply(first);
-                            final Object secondValue = valueExtractor.apply(secondTyped);
-
-                            if (!Objects.equals(firstValue, secondValue)) {
-                                return false;
-                            }
+                    if (allowSubTypes) {
+                        if (!type.isInstance(first) || !type.isInstance(second)) {
+                            return false;
                         }
-
-                        return true;
-                    } catch (final ClassCastException e) {
-                        return false;
+                    } else {
+                        if (type != first.getClass() || type != second.getClass()) {
+                            return false;
+                        }
                     }
+                    final T secondTyped = (T) second;
+
+                    for (final Function<T, ?> valueExtractor : valueExtractors) {
+                        final Object firstValue = valueExtractor.apply(first);
+                        final Object secondValue = valueExtractor.apply(secondTyped);
+
+                        if (!Objects.equals(firstValue, secondValue)) {
+                            return false;
+                        }
+                    }
+
+                    return true;
                 }
 
                 public int hashCode(final T first) {
-                    Objects.requireNonNull(first);
+                    if (first == null) {
+                        return 0;
+                    }
 
                     int result = 1;
 

@@ -17,11 +17,11 @@ This is how you can do it using the jEqual library!
 ```java
 public class Person {
     private static final Equality<Person> EQUALITY = Equality
-                .withInstancesOf(Person.class)
-                .allowAnySubType()
-                .checkEqualityOf(Person::getFirstName)
-                .checkEqualityOf(Person::getLastName)
-                .define();
+            .ofClass(Person.class)
+            .orAnySubClass()
+            .checkEquals(Person::getFirstName)
+            .checkEquals(Person::getLastName)
+            .define();
 
     private String firstName;
     private String lastName;
