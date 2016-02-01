@@ -4,6 +4,10 @@
 
 Making `equals` and `hashCode` nice and easy since **2016**!
 
+Implementing `equals` and `hashCode` properly is sometimes a challenge. The IDE can generate code for you, but the result is often a little cryptic, and so even after the recent additions in JDK 8.
+I like my code to be as clear as possible and thus, defining an "equality" of an object should implement in some higher-level manner than just comparing value by value by hand.
+So, this is how it looks like my way:
+
 ```java
 public class Person {
     private static final Equality<Person> EQUALITY = Equality
