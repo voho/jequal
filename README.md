@@ -1,5 +1,7 @@
 # jEqual
 
+[![Travis](https://travis-ci.org/voho/jequal.svg?branch=master)](https://travis-ci.org/voho/jequal) [![codecov.io](https://codecov.io/github/voho/jequal/coverage.svg?branch=master)](https://codecov.io/github/voho/jequal?branch=master)
+
 Making `equals` and `hashCode` nice and easy since **2016**!
 
 ```java
