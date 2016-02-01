@@ -4,6 +4,8 @@ import cz.voho.jequal.beans.Employee;
 import cz.voho.jequal.beans.Person;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class PersonEqualityTest extends AbstractEqualityTest {
     private static final Equality<Person> EQUALITY_ON_NAME_WITH_SUB_TYPES = Equality
             .ofClass(Person.class)
@@ -17,6 +19,12 @@ public class PersonEqualityTest extends AbstractEqualityTest {
             .checkEquals(Person::getFirstName)
             .checkEquals(Person::getLastName)
             .define();
+
+    @Test
+    public void testNullHashCode() {
+        assertEquals(0, EQUALITY_ON_NAME_WITH_SUB_TYPES.hashCode(null));
+        assertEquals(0, EQUALITY_ON_NAME_WITHOUT_SUB_TYPES.hashCode(null));
+    }
 
     @Test
     public void testNotEqualToNull() {
