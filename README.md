@@ -4,9 +4,15 @@
 
 Making `equals` and `hashCode` nice and easy since **2016**!
 
+## Introduction
+
 Implementing `equals` and `hashCode` properly is sometimes a challenge. The IDE can generate code for you, but the result is often a little cryptic, and so even after the recent additions in JDK 8.
-I like my code to be as clear as possible and thus, defining an "equality" of an object should implement in some higher-level manner than just comparing value by value by hand.
-So, this is how it looks like my way:
+According to me, **equality** of an object with another object is something that has to be defined very clearly using the right concepts and level of abstraction.
+The level of just comparing value by value, checking for *null*s and stuff... that is simply too low level! 
+
+## Example
+
+This is how you can do it using the jEqual library!
 
 ```java
 public class Person {
@@ -46,4 +52,29 @@ public class Person {
         return EQUALITY.equals(this, o);
     }
 }
+```
+
+## Usage
+
+You can include this library in your Maven project using the Jitpack service.
+
+This has two steps. Step one, include this repository:
+
+```
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+Step two, add this dependency (you can find the latest version in `pom.xml` file):
+
+```
+<dependency>
+    <groupId>com.github.voho</groupId>
+    <artifactId>jequal</artifactId>
+    <version>{SPECIFY_VERSION_HERE}</version>
+</dependency>
 ```
