@@ -2,13 +2,14 @@
 
 [![Travis](https://travis-ci.org/voho/jequal.svg?branch=master)](https://travis-ci.org/voho/jequal) [![codecov.io](https://codecov.io/github/voho/jequal/coverage.svg?branch=master)](https://codecov.io/github/voho/jequal?branch=master)
 
-Making `equals` and `hashCode` nice and easy since **2016**!
+Making `equals` and `hashCode` nice and easy to understand since **2016**!
 
 ## Introduction
 
-Implementing `equals` and `hashCode` properly is sometimes a challenge. The IDE can generate code for you, but the result is often a little cryptic, and so even after the recent additions in JDK 8.
-According to me, **equality** of an object with another object is something that has to be defined very clearly using the right concepts and level of abstraction.
-The level of just comparing value by value, checking for *null*s and stuff... that is simply too low level! 
+Implementing `equals` and `hashCode` properly is quite a challenge. The IDE can usually generate the code for you, but the result is often a little bit cryptic, and that remains true even after the recent additions in JDK 8.
+If implemented improperly, the crippled equality can lead to difficult Heisenbugs when using objects in various equality-based collections, like sets.
+In my opinion, definition of an **equality** of an object with another object is something that has to be defined very clearly using the right concepts and at the correct level of abstraction.
+Simply comparing value by value, checking for *null*s and stuff... my patience is already gone.
 
 ## Example
 
@@ -56,7 +57,7 @@ public class Person {
 
 ## Usage
 
-You can include this library in your Maven project using the Jitpack service.
+You can include this library in your Maven project simply using the Jitpack service.
 
 This has two steps. Step one, include this repository:
 
