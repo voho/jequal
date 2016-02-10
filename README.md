@@ -18,10 +18,10 @@ This is how you can do it using the jEqual library!
 ```java
 public class Person {
     private static final Equality<Person> EQUALITY = Equality
-            .ofClass(Person.class)
-            .orAnySubClass()
-            .checkEquals(Person::getFirstName)
-            .checkEquals(Person::getLastName)
+            .onType(Person.class)
+            .orAnySubType()
+            .checkEquality(Person::getFirstName)
+            .checkEquality(Person::getLastName)
             .define();
 
     private String firstName;

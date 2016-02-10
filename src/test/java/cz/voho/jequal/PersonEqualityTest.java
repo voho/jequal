@@ -8,16 +8,16 @@ import static org.junit.Assert.assertEquals;
 
 public class PersonEqualityTest extends AbstractEqualityTest {
     private static final Equality<Person> EQUALITY_ON_NAME_WITH_SUB_TYPES = Equality
-            .ofClass(Person.class)
-            .orAnySubClass()
-            .checkEquals(Person::getFirstName)
-            .checkEquals(Person::getLastName)
+            .onType(Person.class)
+            .orAnySubType()
+            .checkEquality(Person::getFirstName)
+            .checkEquality(Person::getLastName)
             .define();
 
     private static final Equality<Person> EQUALITY_ON_NAME_WITHOUT_SUB_TYPES = Equality
-            .ofClass(Person.class)
-            .checkEquals(Person::getFirstName)
-            .checkEquals(Person::getLastName)
+            .onType(Person.class)
+            .checkEquality(Person::getFirstName)
+            .checkEquality(Person::getLastName)
             .define();
 
     @Test

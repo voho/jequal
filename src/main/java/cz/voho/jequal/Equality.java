@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 public interface Equality<T> {
-    static <T> Equality.Builder<T> ofClass(final Class<T> type) {
+    static <T> Equality.Builder<T> onType(final Class<T> type) {
         return new Builder<T>(type);
     }
 
@@ -25,12 +25,12 @@ public interface Equality<T> {
             allowSubTypes = false;
         }
 
-        public Builder<T> orAnySubClass() {
+        public Builder<T> orAnySubType() {
             allowSubTypes = true;
             return this;
         }
 
-        public Builder<T> checkEquals(final Function<T, ?> valueExtractor) {
+        public Builder<T> checkEquality(final Function<T, ?> valueExtractor) {
             valueExtractors.add(valueExtractor);
             return this;
         }
