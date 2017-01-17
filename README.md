@@ -20,9 +20,9 @@ This is how you can do it using the jEqual library!
 public class Person {
     private static final Equality<Person> EQUALITY = Equality
             .onType(Person.class)
-            .orAnySubType()
-            .checkEquality(Person::getFirstName)
-            .checkEquality(Person::getLastName)
+            .allowingSubType()
+            .checkingEqualityOf(Person::getFirstName)
+            .checkingEqualityOf(Person::getLastName)
             .define();
 
     private String firstName;

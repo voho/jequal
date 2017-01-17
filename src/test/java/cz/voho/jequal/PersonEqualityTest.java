@@ -9,15 +9,15 @@ import static org.junit.Assert.assertEquals;
 public class PersonEqualityTest extends AbstractEqualityTest {
     private static final Equality<Person> EQUALITY_ON_NAME_WITH_SUB_TYPES = Equality
             .onType(Person.class)
-            .orAnySubType()
-            .checkEquality(Person::getFirstName)
-            .checkEquality(Person::getLastName)
+            .allowingSubType()
+            .checkingEqualityOf(Person::getFirstName)
+            .checkingEqualityOf(Person::getLastName)
             .define();
 
     private static final Equality<Person> EQUALITY_ON_NAME_WITHOUT_SUB_TYPES = Equality
             .onType(Person.class)
-            .checkEquality(Person::getFirstName)
-            .checkEquality(Person::getLastName)
+            .checkingEqualityOf(Person::getFirstName)
+            .checkingEqualityOf(Person::getLastName)
             .define();
 
     @Test
